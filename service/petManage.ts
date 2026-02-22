@@ -10,14 +10,14 @@ export const addPet = async (
     age?: string;
     gender: "Male" | "Female";
     vaccinated: boolean;
-    imageUri: string,
+    petImage: string,
   },
   
 ) => {
   try {
-    const imageUrl = await uploadPetImage(petData.imageUri, userId);
+    const imageUrl = await uploadPetImage(petData.petImage, userId);
 
-    const petsCollection = collection(db, "users", userId, "pets");
+    const petsCollection = collection(db,"users", userId,"pets");
 
     const petDocRef = await addDoc(petsCollection, {
       ...petData,
