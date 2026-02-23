@@ -1,0 +1,138 @@
+import { db } from "./firebase";
+import {
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  query,
+  getDocs,
+  where,
+  deleteDoc,
+} from "firebase/firestore";
+
+interface MatchingAlert {
+  id: string;
+  userId: string;
+  petId: string;
+  petName: string;
+  address: string;
+  whatsAppNum: string;
+  gender: string;
+  age: string;
+  image: string;
+  type: string;
+  vaccinated: boolean;
+  breed: string;
+  status: string;
+}
+
+export const publishMatchingAlert = async (
+  userId: string,
+  petId: string,
+  whatsAppNumber: string,
+  address: string,
+) => {
+  try {
+    const alertCheck = collection(db, "alerts");
+
+    const q = query(
+      alertCheck,
+      where("userId", "==", userId),
+      where("petId", "==", petId),
+      where("status", "==", "Active"),
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      throw new Error("This pet already has an active alert.");
+    }
+
+    const petDoc = doc(db, "users", userId, "pets", petId);
+    const petSnap = await getDoc(petDoc);
+
+    if (!petSnap) {
+      throw new Error("Pet Not Found");
+    }
+
+    const petData = petSnap.data();
+
+    const MatchingAlert = {
+      userId,
+      petId,
+      petName: petData?.name,
+      address: address,
+      whatsAppNum: whatsAppNumber,
+      gender: petData?.gender,
+      age: petData?.age,
+      image: petData?.imageUrl,
+      type: petData?.type,
+      vaccinated: petData?.vaccinated,
+      breed: petData?.breed,
+      status: "Active",
+    };
+
+    const alertRef = await addDoc(collection(db, "alerts"), MatchingAlert);
+
+    return alertRef.id;
+  } catch (error) {
+    throw new Error("Failed to publish alert");
+  }
+};
+
+export const getActiveAlerts = async (userId: string): Promise<any[]> => {
+  try {
+    const alertsRef = collection(db, "alerts");
+
+    const q = query(alertsRef, where("userId", "==", userId));
+
+    const querySnapshot = await getDocs(q);
+
+    const alerts = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return alerts;
+  } catch (error) {
+    return [];
+  }
+};
+
+export const deleteAlert = async (alertId: string) => {
+  try {
+    await deleteDoc(doc(db, "alerts", alertId));
+    return true;
+  } catch (error) {
+    throw new Error("Failed To Cancel Matching Alert..!");
+  }
+};
+
+export const getAllAlerts = async (
+  userId: string
+): Promise<MatchingAlert[]> => {
+  try {
+    const alertRef = collection(db, "alerts");
+
+    const q = query(
+      alertRef,
+      where("status", "==", "Active")
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    let alerts: MatchingAlert[] = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...(doc.data() as Omit<MatchingAlert, "id">),
+    }));
+
+    alerts = alerts.filter((alert) => alert.userId !== userId);
+
+    alerts = alerts.sort(() => 0.5 - Math.random());
+
+    return alerts.slice(0, 10);
+
+  } catch (error) {
+    return [];
+  }
+};
