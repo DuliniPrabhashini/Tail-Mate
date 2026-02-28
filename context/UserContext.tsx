@@ -24,7 +24,11 @@ export const UserProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
-    if (!user) return;
+  try {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
 
     const data = await getUserData(user.uid);
 
@@ -35,10 +39,12 @@ export const UserProvider = ({ children }: any) => {
       address: data?.address ?? "",
       profileImage: data?.profileImage ?? null,
     });
-
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+  } finally {
     setLoading(false);
-  };
-
+  }
+};
   useEffect(() => {
     fetchUser();
   }, [user]);

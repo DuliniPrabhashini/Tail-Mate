@@ -37,7 +37,6 @@ const Home = () => {
 
     const fetchMatchAlerts = async () => {
       const alerts = await getAllAlerts(user.uid)
-      console.log(alerts)
       setMatchAlerts(alerts)
     };
 
@@ -47,7 +46,7 @@ const Home = () => {
     };
     fetchPets();
     fetchMatchAlerts()
-  }, [user]);
+  }, [user,router]);
 
  const openWhatsApp = (phone: string, username: string) => {
   const message = `Hello, I'm ${username}.\nI also have a pet.\nI would like to discuss about our pets.`;
