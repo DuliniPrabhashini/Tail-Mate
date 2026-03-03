@@ -1,50 +1,80 @@
-# Welcome to your Expo app 👋
+# 🐾 Welcome to Tail Mate Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Tail Mate is a modern mobile application built to help dog owners connect and find suitable breeding partners for their pets. Designed like a lightweight social networking platform, it allows users to create profiles, share posts, and communicate easily with nearby pet owners.
 
-## Get started
+## 📱 Overview
 
-1. Install dependencies
+Tail Mate simplifies the process of finding the right breeding partner by combining social interaction, location-based filtering, and direct communication tools into one seamless mobile experience.
 
+## ✨ Features
+
+### 🔐 Authentication
+- Secure user registration and login using Firebase Authentication
+- Email verification for enhanced security
+
+### 👤 User Profiles
+- Create and manage personal profiles
+- Add dog details:
+  - Breed
+  - Age
+  - Gender
+  - Vaccined or not
+- Optional contact details:
+  - Phone number (WhatsApp)
+
+### 📝 Post Creation
+- Create posts to find breeding partners
+- Structured form with:
+  - Pet details
+
+### 📰 Social Feed
+- View posts from other users
+- Scrollable feed similar to social media apps
+
+### 💬 Communication
+- Contact users via:
+  - WhatsApp 📱
+- Direct redirection to selected platform
+
+### 🔄 CRUD Operations
+- Create, Read, Update, Delete:
+  - User profiles
+  - Posts
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Framework | React Native + Expo |
+| Backend | Firebase |
+| Authentication | Firebase Authentication |
+| Database | Firebase Firestore |
+
+## 📦 Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/DuliniPrabhashini/Tail-Mate.git
+
+2. **Install dependancies**
    ```bash
    npm install
-   ```
 
-2. Start the app
-
+3. **Stat the expo app**
    ```bash
    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+## 📲 APK Download
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+👉 [Download Tail Mate APK](https://expo.dev/accounts/dulini/projects/tail-mate/builds/1f8bee86-2a96-49eb-9d9b-babfc9893cc5)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🎯 Future Enhancements
+-🔔 Push notifications
 
-## Get a fresh project
+-❤️ Like & comment system
 
-When you're ready, run:
+-🐶 Advanced matching algorithm
 
-```bash
-npm run reset-project
-```
+-🌍 Real-time chat feature
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+   
